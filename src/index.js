@@ -5,7 +5,14 @@ const app = express()
 const handlebars = require('express-handlebars')
 
 const morgan = require('morgan')
+
+// sass
+var sass = require('node-sass');
+
 const port = 3000
+
+// static file
+app.use(express.static(path.join(__dirname, 'public')));
 
 // HTTP logger
 app.use(morgan('combined'))
