@@ -14,6 +14,12 @@ const port = 3000
 // static file
 app.use(express.static(path.join(__dirname, 'public')));
 
+// middleware cho form data do không có trong body của method: POST
+app.use(express.urlencoded({
+  extended: true,
+}))
+app.use(express.json())
+
 // HTTP logger
 app.use(morgan('combined'))
 
@@ -34,9 +40,14 @@ app.get('/news', (req, res) => {
 })
 
 app.get('/search', (req, res) => {
-  console.log(req.query.author)
   res.render('search');
 })
+
+app.post('/search', (req, res) => {
+  console.log(req.body)
+  res.send('');
+})
+
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
