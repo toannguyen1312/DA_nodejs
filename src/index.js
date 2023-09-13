@@ -1,10 +1,19 @@
-var path = require('path');
+const path = require('path');
 const express = require('express')
+
 const app = express()
 
 const handlebars = require('express-handlebars')
 
 const morgan = require('morgan')
+
+// import controllers news
+
+const news = require('./app/controllers/Newcontroller')
+
+// import roures index
+
+const route = require('./routes');
 
 // sass
 var sass = require('node-sass');
@@ -31,23 +40,7 @@ app.set('view engine', '.hbs');
 // set foder
 app.set('views', path.join(__dirname, 'resources/views'));
 
-app.get('/', (req, res) => {
-  res.render('home');
-})
-
-app.get('/news', (req, res) => {
-  res.render('news');
-})
-
-app.get('/search', (req, res) => {
-  res.render('search');
-})
-
-app.post('/search', (req, res) => {
-  console.log(req.body)
-  res.send('');
-})
-
+route(app)
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
